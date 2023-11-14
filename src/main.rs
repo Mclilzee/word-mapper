@@ -63,8 +63,12 @@ fn count_words(content: String) -> Vec<(String, u32)> {
         count.insert(word.to_owned(), i + 1);
     }
 
-    let mut entries: Vec<(&String, &u32)> = count.iter().collect();
-    entries.sort_by(|a, b| b.1.cmp(a.1));
+    let mut entries: Vec<(String, u32)> = count
+        .iter()
+        .map(|t| (t.0.to_owned(), t.1.to_owned()))
+        .collect();
+
+    entries.sort_by(|a, b| b.1.cmp(&a.1));
 
     return entries;
 }
