@@ -1,5 +1,4 @@
 use std::fs::{read_dir, read_to_string};
-use std::path::Path;
 
 fn main() {
     let args: Vec<String> = std::env::args().collect();
@@ -26,10 +25,14 @@ fn read_content(path: &str) -> String {
         return dir
             .filter_map(|x| x.ok())
             .map(|x| x.path())
-            .map(|c| read_to_string(c))
+            .map(read_to_string)
             .filter_map(|x| x.ok())
             .collect();
     };
 
-    return "".to_owned();
+    if let Ok(content) = read_to_string(path) {
+        content
+    } else {
+        "".to_owned()
+    }
 }
