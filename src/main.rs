@@ -52,10 +52,10 @@ fn count_words(content: String) -> String {
     let content: String = content
         .to_lowercase()
         .chars()
-        .filter(|c| c.is_alphabetic())
+        .filter(|c| c.is_alphabetic() || c == &' ' || c == &'\n')
         .collect();
 
-    let content: Vec<&str> = content.split(' ').collect();
+    let content: Vec<&str> = content.lines().flat_map(|l| l.split(' ')).collect();
     let mut count: HashMap<String, u32> = HashMap::new();
 
     for word in content {
@@ -66,8 +66,10 @@ fn count_words(content: String) -> String {
     let mut entries: Vec<(&String, &u32)> = count.iter().collect();
     entries.sort_by(|a, b| b.1.cmp(a.1));
 
-    entries.iter().map(|t| format!("{}: {}", t.0, t.1));
-    // .for_each(|s| print!("{s}"));
+    entries
+        .iter()
+        .map(|t| format!("{}: {}", t.0, t.1))
+        .for_each(|s| print!("{s}"));
 
     String::new()
 }
