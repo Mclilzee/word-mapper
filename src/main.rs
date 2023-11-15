@@ -19,7 +19,9 @@ fn main() {
         .map(read_file_content)
         .collect();
 
-    count_words(content);
+    count_words(content)
+        .iter()
+        .for_each(|t| println!("{}: {}", t.0, t.1));
 }
 
 fn extract_files(path: PathBuf) -> Vec<PathBuf> {
