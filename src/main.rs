@@ -19,7 +19,7 @@ fn main() {
         .map(read_file_content)
         .collect();
 
-    count_words(content)
+    count_words(content.to_lowercase())
         .iter()
         .for_each(|t| println!("{}: {}", t.0, t.1));
 }
