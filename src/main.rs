@@ -51,12 +51,6 @@ fn read_file_content(path: PathBuf) -> String {
 }
 
 fn count_words(content: String) -> Vec<(String, u32)> {
-    let content: String = content
-        .to_lowercase()
-        .chars()
-        .filter(|c| c == &' ' || c == &'\n' || c == &'\'' || c.is_alphabetic())
-        .collect();
-
     let content: Vec<&str> = content.split_whitespace().collect();
     let mut count: HashMap<String, u32> = HashMap::new();
 
