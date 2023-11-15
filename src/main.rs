@@ -57,7 +57,7 @@ fn count_words(content: String) -> Vec<(String, u32)> {
         .filter(|c| c == &' ' || c == &'\n' || c == &'\'' || c.is_alphabetic())
         .collect();
 
-    let content: Vec<&str> = content.lines().flat_map(|l| l.split(' ')).collect();
+    let content: Vec<&str> = content.split_whitespace().collect();
     let mut count: HashMap<String, u32> = HashMap::new();
 
     for word in content {
@@ -72,5 +72,5 @@ fn count_words(content: String) -> Vec<(String, u32)> {
 
     entries.sort_by(|a, b| b.1.cmp(&a.1));
 
-    return entries;
+    entries
 }
