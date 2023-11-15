@@ -70,7 +70,7 @@ fn count_words(content: String) -> Vec<(String, u32)> {
         .map(|t| (t.0.to_owned(), t.1.to_owned()))
         .collect();
 
-    entries.sort_by(|a, b| b.1.cmp(&a.1));
+    entries.sort_by(|a, b| a.1.cmp(&b.1));
 
     entries
 }
