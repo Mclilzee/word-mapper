@@ -72,22 +72,39 @@ fn count_words(content: String) -> Vec<(String, u32)> {
 
 fn extract_tokens(chars: &Vec<char>) -> Vec<String> {
     let mut tokens: Vec<String> = Vec::new();
+    if chars.is_empty() {
+        return tokens;
+    };
+
     println!("{:?}", chars);
     let mut start_index = 0;
     let mut end_index = 1;
     for char in chars {
+        if start_index == chars.len() {
+            break;
+        };
+
         if char.is_whitespace() {
-            if chars[start_index].is_alphabetic() {
-                let str: String = chars[start_index..end_index].iter().collect();
-                tokens.push(str);
-                start_index = end_index;
-                end_index += 1;
-            } else {
-                start_index += 1;
-                end_index += 1;
-            }
-        } else if char.is_alphabetic() || chars[start_index].is_alphabetic() && char.is_numeric() {
+            start_index += 1;
             end_index += 1;
+        } else if char.is_numeric() {
+            let str: String = chars
+                .iter()
+                .skip(start_index)
+                .take_while(|c| c.is_numeric())
+                .collect();
+            start_index += str.len();
+            end_index = start_index + 1;
+            tokens.push(str);
+        } else if char.is_alphabetic() {
+            let str: String = chars
+                .iter()
+                .skip(start_index)
+                .take_while(|c| c.is_alphanumeric())
+                .collect();
+            start_index += str.len();
+            end_index = start_index + 1;
+            tokens.push(str);
         } else {
             let str: String = chars[start_index..end_index].iter().collect();
             tokens.push(str);
