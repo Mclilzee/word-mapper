@@ -77,7 +77,6 @@ fn extract_tokens(chars: &Vec<char>) -> Vec<String> {
     for char in chars {
         if char.is_whitespace() && chars[start_index].is_alphabetic() {
             let str: String = chars[start_index..end_index].iter().collect();
-            println!("Str is {}", str);
             tokens.push(str);
             start_index = end_index;
             end_index += 1;
@@ -88,7 +87,6 @@ fn extract_tokens(chars: &Vec<char>) -> Vec<String> {
             end_index += 1;
         } else {
             let str: String = chars[start_index..end_index].iter().collect();
-            println!("Str is {}", str);
             tokens.push(str);
             start_index = end_index;
             end_index += 1;
