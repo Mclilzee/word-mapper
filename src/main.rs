@@ -51,11 +51,12 @@ fn read_file_content(path: PathBuf) -> String {
 }
 
 fn count_words(content: String) -> Vec<(String, u32)> {
-    let content: Vec<&str> = content.split_whitespace().collect();
+    let chars = content.chars().collect();
+    let tokens: Vec<String> = extract_tokens(&chars);
     let mut count: HashMap<String, u32> = HashMap::new();
 
-    for word in content {
-        let i = count.get(word).unwrap_or(&0);
+    for word in tokens {
+        let i = count.get(&word).unwrap_or(&0);
         count.insert(word.to_owned(), i + 1);
     }
 
@@ -67,4 +68,8 @@ fn count_words(content: String) -> Vec<(String, u32)> {
     entries.sort_by(|a, b| a.1.cmp(&b.1));
 
     entries
+}
+
+fn extract_tokens(content: &Vec<char>) -> Vec<String> {
+    vec![String::new()]
 }
