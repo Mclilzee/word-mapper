@@ -76,14 +76,16 @@ fn extract_tokens(chars: &Vec<char>) -> Vec<String> {
     let mut start_index = 0;
     let mut end_index = 1;
     for char in chars {
-        if char.is_whitespace() && chars[start_index].is_alphabetic() {
-            let str: String = chars[start_index..end_index].iter().collect();
-            tokens.push(str);
-            start_index = end_index;
-            end_index += 1;
-        } else if char.is_whitespace() {
-            start_index += 1;
-            end_index += 1;
+        if char.is_whitespace() {
+            if chars[start_index].is_alphabetic() {
+                let str: String = chars[start_index..end_index].iter().collect();
+                tokens.push(str);
+                start_index = end_index;
+                end_index += 1;
+            } else {
+                start_index += 1;
+                end_index += 1;
+            }
         } else if char.is_alphabetic() || chars[start_index].is_alphabetic() && char.is_numeric() {
             end_index += 1;
         } else {
