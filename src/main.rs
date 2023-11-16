@@ -76,7 +76,6 @@ fn extract_tokens(chars: &Vec<char>) -> Vec<String> {
         return tokens;
     };
 
-    println!("{:?}", chars);
     let mut start_index = 0;
     let mut end_index = 1;
     while start_index < chars.len() {
