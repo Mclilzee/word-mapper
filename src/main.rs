@@ -79,15 +79,11 @@ fn extract_tokens(chars: &Vec<char>) -> Vec<String> {
     println!("{:?}", chars);
     let mut start_index = 0;
     let mut end_index = 1;
-    for char in chars {
-        if start_index == chars.len() {
-            break;
-        };
-
-        if char.is_whitespace() {
+    while start_index < chars.len() {
+        if chars[start_index].is_whitespace() {
             start_index += 1;
             end_index += 1;
-        } else if char.is_numeric() {
+        } else if chars[start_index].is_numeric() {
             let str: String = chars
                 .iter()
                 .skip(start_index)
@@ -96,7 +92,7 @@ fn extract_tokens(chars: &Vec<char>) -> Vec<String> {
             start_index += str.len();
             end_index = start_index + 1;
             tokens.push(str);
-        } else if char.is_alphabetic() {
+        } else if chars[start_index].is_alphabetic() {
             let str: String = chars
                 .iter()
                 .skip(start_index)
