@@ -70,6 +70,19 @@ fn count_words(content: String) -> Vec<(String, u32)> {
     entries
 }
 
-fn extract_tokens(content: &Vec<char>) -> Vec<String> {
-    vec![String::new()]
+fn extract_tokens(chars: &Vec<char>) -> Vec<String> {
+    let mut tokens: Vec<String> = Vec::new();
+    let mut start_index = 0;
+    let mut end_index = 1;
+    for char in chars {
+        if char.is_alphabetic() || chars[start_index].is_alphabetic() && !char.is_whitespace() {
+            end_index += 1;
+        } else {
+            let str: String = chars[start_index..end_index].iter().collect();
+            tokens.push(str);
+            start_index = end_index;
+        }
+    }
+
+    tokens
 }
