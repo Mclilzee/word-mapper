@@ -11,7 +11,7 @@ fn main() {
         return;
     }
 
-    let print_summary = args.len() > 2 && args.get(1).unwrap() == "-S";
+    let print_summary = args.len() >= 2 && args.get(0).unwrap() == "-S";
     let token_files = args
         .iter()
         .skip(if print_summary { 1 } else { 0 })
