@@ -39,8 +39,13 @@ fn print_token_files(files: Vec<TokenFile>) {
 fn print_token_summary(files: Vec<TokenFile>) {
     files
         .iter()
-        .flat_map(|f| &f.tokens)
+        .map(|f| &f.tokens)
+        .flat_map(sum_count)
         .for_each(|f| println!("{}: {}", f.0, f.1));
+}
+
+fn sum_count(token_file: &Vec<(String, usize)>) -> Vec<(String, usize)> {
+    return vec![];
 }
 
 fn extract_files(path: PathBuf) -> Vec<PathBuf> {
