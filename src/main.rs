@@ -72,5 +72,5 @@ fn print_token_summary(files: Vec<TokenFile>) {
         .collect();
 
     sorted.sort_by(|a, b| a.1.cmp(&b.1));
-    sorted.iter().for_each(|t| println!("{t:?}"));
+    sorted.iter().for_each(|(t, c)| println!("{t}: {c}"));
 }
