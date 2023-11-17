@@ -48,10 +48,9 @@ fn extract_files(path: PathBuf) -> Vec<PathBuf> {
 
 fn print_token_files(files: Vec<TokenFile>) {
     files.iter().for_each(|f| {
-        println!("{}", f.name);
         f.tokens
             .iter()
-            .for_each(|t| println!("---- {}: {}", t.0, t.1));
+            .for_each(|t| println!("{}: {} <-- {}", t.0, t.1, f.name));
     });
 }
 
