@@ -67,7 +67,7 @@ fn count_tokens(tokens: Vec<String>) -> Vec<(String, usize)> {
 
     let mut entries: Vec<(String, usize)> = count
         .iter()
-        .map(|t| (t.0.to_owned(), t.1.to_owned()))
+        .map(|(k, v)| (k.to_owned(), v.to_owned()))
         .collect();
 
     entries.sort_by(|a, b| a.1.cmp(&b.1));

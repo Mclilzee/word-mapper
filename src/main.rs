@@ -1,5 +1,6 @@
 mod token_file;
 
+use std::collections::HashMap;
 use std::path::Path;
 use std::{fs::read_dir, path::PathBuf};
 use token_file::TokenFile;
@@ -27,27 +28,6 @@ fn main() {
     }
 }
 
-fn print_token_files(files: Vec<TokenFile>) {
-    files.iter().for_each(|f| {
-        println!("{}", f.name);
-        f.tokens
-            .iter()
-            .for_each(|t| println!("---- {}: {}", t.0, t.1));
-    });
-}
-
-fn print_token_summary(files: Vec<TokenFile>) {
-    files
-        .iter()
-        .map(|f| &f.tokens)
-        .flat_map(sum_count)
-        .for_each(|f| println!("{}: {}", f.0, f.1));
-}
-
-fn sum_count(token_file: &Vec<(String, usize)>) -> Vec<(String, usize)> {
-    return vec![];
-}
-
 fn extract_files(path: PathBuf) -> Vec<PathBuf> {
     if path.is_file() {
         return vec![path];
@@ -64,4 +44,33 @@ fn extract_files(path: PathBuf) -> Vec<PathBuf> {
         .map(|x| x.path())
         .flat_map(extract_files)
         .collect()
+}
+
+fn print_token_files(files: Vec<TokenFile>) {
+    files.iter().for_each(|f| {
+        println!("{}", f.name);
+        f.tokens
+            .iter()
+            .for_each(|t| println!("---- {}: {}", t.0, t.1));
+    });
+}
+
+fn print_token_summary(files: Vec<TokenFile>) {
+    let mut sorted: Vec<(String, usize)> = files
+        .iter()
+        .map(|t| &t.tokens)
+        .fold(HashMap::new(), |map, vec| {
+            vec.iter().fold(map, |mut map, tuple| {
+                let (token, count) = tuple;
+                let count = map.get(token).unwrap_or(&0) + count;
+                map.insert(token.to_owned(), count);
+                map
+            })
+        })
+        .iter()
+        .map(|(k, v)| (k.to_owned(), v.to_owned()))
+        .collect();
+
+    sorted.sort_by(|a, b| a.1.cmp(&b.1));
+    sorted.iter().for_each(|t| println!("{t:?}"));
 }
