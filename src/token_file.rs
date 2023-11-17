@@ -1,9 +1,10 @@
 use std::collections::HashMap;
 use std::{fs::read_to_string, path::PathBuf};
 
+#[derive(Debug)]
 pub struct TokenFile {
-    name: String,
-    tokens: Vec<(String, usize)>,
+    pub name: String,
+    pub tokens: Vec<(String, usize)>,
 }
 
 impl TokenFile {

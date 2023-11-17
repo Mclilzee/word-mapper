@@ -1,11 +1,8 @@
 mod token_file;
 
-use std::collections::HashMap;
 use std::path::Path;
-use std::{
-    fs::{read_dir, read_to_string},
-    path::PathBuf,
-};
+use std::{fs::read_dir, path::PathBuf};
+use token_file::TokenFile;
 
 fn main() {
     let args: Vec<String> = std::env::args().skip(1).collect();
@@ -14,16 +11,10 @@ fn main() {
         return;
     }
 
-    let content: String = args
-        .iter()
+    args.iter()
         .map(|x| Path::new(x).to_path_buf())
-        .flat_map(extract_files)
-        .map(read_file_content)
-        .collect();
-
-    count_words(content)
-        .iter()
-        .for_each(|t| println!("{}: {}", t.0, t.1));
+        .flat_map(TokenFile::from)
+        .for_each(|f| println!("{}", f.name));
 }
 
 fn extract_files(path: PathBuf) -> Vec<PathBuf> {
@@ -42,68 +33,4 @@ fn extract_files(path: PathBuf) -> Vec<PathBuf> {
         .map(|x| x.path())
         .flat_map(extract_files)
         .collect()
-}
-
-fn read_file_content(path: PathBuf) -> String {
-    if let Ok(content) = read_to_string(path) {
-        content
-    } else {
-        "".to_owned()
-    }
-}
-
-fn count_words(content: String) -> Vec<(String, u32)> {
-    let chars = content.chars().collect();
-    let tokens: Vec<String> = extract_tokens(&chars);
-    let mut count: HashMap<String, u32> = HashMap::new();
-
-    for word in tokens {
-        let i = count.get(&word).unwrap_or(&0);
-        count.insert(word.to_owned(), i + 1);
-    }
-
-    let mut entries: Vec<(String, u32)> = count
-        .iter()
-        .map(|t| (t.0.to_owned(), t.1.to_owned()))
-        .collect();
-
-    entries.sort_by(|a, b| a.1.cmp(&b.1));
-
-    entries
-}
-
-fn extract_tokens(chars: &Vec<char>) -> Vec<String> {
-    let mut tokens: Vec<String> = Vec::new();
-    if chars.is_empty() {
-        return tokens;
-    };
-
-    let mut index = 0;
-    while index < chars.len() {
-        if chars[index].is_whitespace() {
-            index += 1;
-        } else if chars[index].is_numeric() {
-            let str: String = chars
-                .iter()
-                .skip(index)
-                .take_while(|c| c.is_numeric())
-                .collect();
-            index += str.len();
-            tokens.push(str);
-        } else if chars[index].is_alphabetic() {
-            let str: String = chars
-                .iter()
-                .skip(index)
-                .take_while(|c| c.is_alphanumeric())
-                .collect();
-            index += str.len();
-            tokens.push(str);
-        } else {
-            let str: String = chars.iter().skip(index).take(1).collect();
-            tokens.push(str);
-            index += 1;
-        }
-    }
-
-    tokens
 }
