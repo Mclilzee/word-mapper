@@ -15,7 +15,12 @@ fn main() {
         .map(|x| Path::new(x).to_path_buf())
         .flat_map(extract_files)
         .flat_map(TokenFile::from)
-        .for_each(|f| println!("{}", f.name));
+        .for_each(|f| {
+            println!("{}", f.name);
+            f.tokens
+                .iter()
+                .for_each(|t| println!("\t\t{}: {}", t.0, t.1));
+        });
 }
 
 fn extract_files(path: PathBuf) -> Vec<PathBuf> {
