@@ -13,6 +13,7 @@ fn main() {
 
     args.iter()
         .map(|x| Path::new(x).to_path_buf())
+        .flat_map(extract_files)
         .flat_map(TokenFile::from)
         .for_each(|f| println!("{}", f.name));
 }
