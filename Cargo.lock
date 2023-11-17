@@ -3,5 +3,5 @@
 version = 3
 
 [[package]]
-name = "word-mapper"
-version = "0.1.0"
+name = "wmapper"
+version = "0.3.0"
