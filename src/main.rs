@@ -2,6 +2,7 @@ mod args;
 mod token_file;
 
 use args::Args;
+use clap::Parser;
 use std::collections::HashMap;
 use std::path::Path;
 use std::{fs::read_dir, path::PathBuf};
@@ -18,7 +19,7 @@ fn main() {
     let token_files = args
         .iter()
         .skip(if print_summary { 1 } else { 0 })
-        .map(|x| Path::new(x).to_path_buf())
+        .map(PathBuf::from)
         .flat_map(extract_files)
         .flat_map(TokenFile::from)
         .collect();
