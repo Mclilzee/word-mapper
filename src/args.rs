@@ -10,5 +10,5 @@ pub struct Args {
     pub count: bool,
 
     #[clap(short = 'S', long = "search")]
-    pub search: Option<Vec<String>>,
+    pub search: Option<String>,
 }

@@ -4,11 +4,11 @@ mod token_file;
 use args::Args;
 use clap::Parser;
 use std::collections::HashMap;
-use std::path::Path;
 use std::{fs::read_dir, path::PathBuf};
 use token_file::TokenFile;
 
 fn main() {
+    println!("{:?}", Args::parse());
     let args: Vec<String> = std::env::args().skip(1).collect();
     if args.is_empty() {
         eprint!("No files were provided");
