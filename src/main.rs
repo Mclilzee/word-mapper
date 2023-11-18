@@ -4,15 +4,15 @@ mod token_file;
 use args::Args;
 use clap::Parser;
 use std::collections::HashMap;
+use std::process::exit;
 use std::{fs::read_dir, path::PathBuf};
 use token_file::TokenFile;
 
 fn main() {
-    println!("{:?}", Args::parse());
-    let args: Vec<String> = std::env::args().skip(1).collect();
-    if args.is_empty() {
-        eprint!("No files were provided");
-        return;
+    let config = Args::parse();
+    if config.args.is_empty() {
+        eprintln!("No files were provided");
+        exit(1);
     }
 
     let print_summary = args.len() >= 2 && args.get(0).unwrap() == "-S";
