@@ -28,7 +28,7 @@ fn main() {
                 let filtered = f
                     .tokens
                     .into_iter()
-                    .filter(|t| t.0.contains(&search))
+                    .filter(|t| t.0.to_lowercase().contains(&search.to_lowercase()))
                     .collect();
                 TokenFile::from(f.name, filtered)
             })
