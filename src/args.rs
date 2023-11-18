@@ -1,5 +1,4 @@
 use clap::Parser;
-use std::path::PathBuf;
 
 #[derive(Parser)]
 #[clap()]
@@ -11,5 +10,5 @@ pub struct Args {
     pub count: bool,
 
     #[clap(short = 'S', long = "search")]
-    pub pwd: Option<Vec<&str>>,
+    pub search: Option<Vec<&str>>,
 }

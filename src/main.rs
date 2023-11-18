@@ -1,5 +1,7 @@
+mod args;
 mod token_file;
 
+use args::Args;
 use std::collections::HashMap;
 use std::path::Path;
 use std::{fs::read_dir, path::PathBuf};
