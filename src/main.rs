@@ -19,7 +19,7 @@ fn main() {
         .args
         .iter()
         .map(|p| p.into())
-        .flat_map(extract_files)
+        .flat_map(extract_paths)
         .flat_map(TokenFile::from)
         .collect();
 
@@ -30,7 +30,7 @@ fn main() {
     }
 }
 
-fn extract_files(path: PathBuf) -> Vec<PathBuf> {
+fn extract_paths(path: PathBuf) -> Vec<PathBuf> {
     if path.is_file() {
         return vec![path];
     }
@@ -44,7 +44,7 @@ fn extract_files(path: PathBuf) -> Vec<PathBuf> {
         .filter(|x| x.is_ok())
         .flatten()
         .map(|x| x.path())
-        .flat_map(extract_files)
+        .flat_map(extract_paths)
         .collect()
 }
 
