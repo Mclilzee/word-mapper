@@ -15,16 +15,15 @@ fn main() {
         exit(1);
     }
 
-    let print_summary = args.len() >= 2 && args.get(0).unwrap() == "-S";
-    let token_files = args
+    let token_files = config
+        .args
         .iter()
-        .skip(if print_summary { 1 } else { 0 })
-        .map(PathBuf::from)
+        .map(|p| p.into())
         .flat_map(extract_files)
         .flat_map(TokenFile::from)
         .collect();
 
-    if print_summary {
+    if config.count {
         print_token_summary(token_files);
     } else {
         print_token_files(token_files);
