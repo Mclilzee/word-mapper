@@ -8,7 +8,7 @@ pub struct TokenFile {
 }
 
 impl TokenFile {
-    pub fn from(path: PathBuf) -> Option<TokenFile> {
+    pub fn from_path(path: PathBuf) -> Option<TokenFile> {
         let name = path.to_str().unwrap_or("Unknown").to_owned();
         let content = read_to_string(&path);
         if content.is_err() {
@@ -19,6 +19,10 @@ impl TokenFile {
         let tokens = count_tokens(tokens);
 
         Some(TokenFile { name, tokens })
+    }
+
+    pub fn from(name: String, tokens: Vec<(String, usize)>) -> TokenFile {
+        return TokenFile { name, tokens };
     }
 }
 

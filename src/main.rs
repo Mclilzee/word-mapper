@@ -20,8 +20,21 @@ fn main() {
         .iter()
         .map(|p| p.into())
         .flat_map(extract_paths)
-        .flat_map(TokenFile::from)
-        .collect();
+        .flat_map(TokenFile::from_path);
+
+    let token_files: Vec<TokenFile> = match config.search {
+        Some(search) => token_files
+            .map(|f| {
+                let filtered = f
+                    .tokens
+                    .into_iter()
+                    .filter(|t| t.0.contains(&search))
+                    .collect();
+                TokenFile::from(f.name, filtered)
+            })
+            .collect(),
+        None => token_files.collect(),
+    };
 
     if config.count {
         print_token_summary(token_files);
