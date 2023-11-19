@@ -4,7 +4,7 @@ use clap::Parser;
 
 #[derive(Parser)]
 pub struct Args {
-    /// Path of directory file(s)
+    /// Path of directory or file(s)
     pub args: Vec<PathBuf>,
 
     /// For printing out the total occurcenses across all files / directories
