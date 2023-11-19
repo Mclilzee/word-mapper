@@ -22,7 +22,7 @@ impl TokenFile {
     }
 
     pub fn from(name: String, tokens: Vec<(String, usize)>) -> TokenFile {
-        return TokenFile { name, tokens };
+        TokenFile { name, tokens }
     }
 }
 
