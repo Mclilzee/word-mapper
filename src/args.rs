@@ -3,8 +3,6 @@ use std::path::PathBuf;
 use clap::Parser;
 
 #[derive(Parser)]
-#[clap()]
-#[derive(Debug)]
 pub struct Args {
     /// Path of directory file(s)
     pub args: Vec<PathBuf>,
