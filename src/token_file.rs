@@ -27,7 +27,6 @@ impl TokenFile {
 
     pub fn frequency(&self) -> Vec<(&String, f32)> {
         let total_occurences: usize = self.tokens.iter().map(|f| f.1).sum();
-        println!("Sum is: {total_occurences}");
 
         return self
             .tokens
