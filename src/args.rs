@@ -11,7 +11,7 @@ use clap::{command, Parser};
 )]
 pub struct Args {
     /// Path of directory or file(s)
-    pub args: Vec<PathBuf>,
+    pub path: Vec<PathBuf>,
 
     /// For printing out the total occurcenses across all files / directories
     #[clap(short = 'C', long = "count")]

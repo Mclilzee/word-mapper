@@ -10,13 +10,13 @@ use token_file::TokenFile;
 
 fn main() {
     let config = Args::parse();
-    if config.args.is_empty() {
+    if config.path.is_empty() {
         eprintln!("No files were provided");
         exit(1);
     }
 
     let token_files = config
-        .args
+        .path
         .iter()
         .map(|p| p.into())
         .flat_map(extract_paths)
