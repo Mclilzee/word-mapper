@@ -1,8 +1,9 @@
 use std::path::PathBuf;
 
-use clap::Parser;
+use clap::{command, Parser};
 
 #[derive(Parser)]
+#[command(author, version, about)]
 pub struct Args {
     /// Path of directory or file(s)
     pub args: Vec<PathBuf>,
