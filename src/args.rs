@@ -1,4 +1,4 @@
-use clap::{command, Parser};
+use clap::{command, Parser, ValueEnum};
 use std::path::PathBuf;
 
 #[derive(Parser)]
@@ -19,4 +19,10 @@ pub struct Args {
     /// Searching for specific token
     #[arg(short = 'S', long = "search")]
     pub search: Option<String>,
+
+    #[arg(value_enum)]
+    pub format: Format,
 }
+
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, ValueEnum)]
+pub enum Format {}
