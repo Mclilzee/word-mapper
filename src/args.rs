@@ -20,8 +20,12 @@ pub struct Args {
     #[arg(short = 'S', long = "search")]
     pub search: Option<String>,
 
-    #[arg(value_enum)]
-    pub format: Format,
+    ///  Printing format (default, path, frequency, overall)
+    /// -- path will include path printout for each occurence
+    /// -- frequency will show frequency of items
+    /// -- overall will count the overall data of all occurences across mutliple files
+    #[arg(short = 'F', long = "format", value_enum)]
+    pub format: Option<Format>,
 }
 
 #[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, ValueEnum)]
