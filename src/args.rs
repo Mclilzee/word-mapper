@@ -13,20 +13,14 @@ pub struct Args {
     pub path: Vec<PathBuf>,
 
     /// For printing out the total occurcenses across all files / directories
-    #[arg(short = 'C', long = "count")]
-    pub count: bool,
+    #[arg(short = 'O', long = "overall")]
+    pub overall: bool,
 
     /// Searching for specific token
     #[arg(short = 'S', long = "search")]
     pub search: Option<String>,
 
-    ///  Printing format (default, path, frequency, overall)
-    /// -- path will include path printout for each occurence
-    /// -- frequency will show frequency of items
-    /// -- overall will count the overall data of all occurences across mutliple files
-    #[arg(short = 'F', long = "format", value_enum)]
-    pub format: Option<Format>,
+    /// Print out frequencies percentages instead of numbers
+    #[arg(short = 'F', long = "frequency")]
+    pub frequency: bool,
 }
-
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, ValueEnum)]
-pub enum Format {}
