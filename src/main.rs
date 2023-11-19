@@ -38,6 +38,8 @@ fn main() {
 
     if config.overall {
         print_token_summary(token_files);
+    } else if config.frequency {
+        print_token_frequency(token_files);
     } else {
         print_token_files(token_files);
     }
@@ -61,23 +63,20 @@ fn extract_paths(path: PathBuf) -> Vec<PathBuf> {
         .collect()
 }
 
+fn print_token_frequency(files: Vec<TokenFile>) {
+    files.iter().for_each(|f| {
+        f.tokens
+            .iter()
+            .for_each(|t| println!("{}: {}% <-- {}", t.0, t.1, f.name))
+    });
+}
+
 fn print_token_files(files: Vec<TokenFile>) {
-    // files.iter().for_each(|f| {
-    //     f.tokens
-    //         .iter()
-    //         .for_each(|t| println!("{}: {} <-- {}", t.0, t.1, f.name));
-    // });
-
-    let frequencies = files.iter().flat_map(|f| f.frequency());
-
-    frequencies
-        .clone()
-        .for_each(|v| println!("{}: {}%", v.0, v.1));
-
-    println!(
-        "Sums up to {}%!",
-        frequencies.map(|v| v.1).reduce(|acc, n| acc + n).unwrap()
-    );
+    files.iter().for_each(|f| {
+        f.tokens
+            .iter()
+            .for_each(|t| println!("{}: {} <-- {}", t.0, t.1, f.name));
+    });
 }
 
 fn print_token_summary(files: Vec<TokenFile>) {
