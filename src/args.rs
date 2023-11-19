@@ -3,7 +3,12 @@ use std::path::PathBuf;
 use clap::{command, Parser};
 
 #[derive(Parser)]
-#[command(author, version, about)]
+#[command(
+    author,
+    version,
+    about,
+    long_about = "Prints the frequencies of words (tokens) that appears in provided files"
+)]
 pub struct Args {
     /// Path of directory or file(s)
     pub args: Vec<PathBuf>,
