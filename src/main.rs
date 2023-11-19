@@ -62,12 +62,22 @@ fn extract_paths(path: PathBuf) -> Vec<PathBuf> {
 }
 
 fn print_token_files(files: Vec<TokenFile>) {
-    files.iter().for_each(|f| {
-        f.tokens
-            .iter()
-            .for_each(|t| println!("{}: {} <-- {}", t.0, t.1, f.name));
-    });
-    // println!("{}", files.iter().map(|f| f.)))
+    // files.iter().for_each(|f| {
+    //     f.tokens
+    //         .iter()
+    //         .for_each(|t| println!("{}: {} <-- {}", t.0, t.1, f.name));
+    // });
+
+    let frequencies = files.iter().flat_map(|f| f.frequency());
+
+    frequencies
+        .clone()
+        .for_each(|v| println!("{}: {}%", v.0, v.1));
+
+    println!(
+        "Sums up to {}%!",
+        frequencies.map(|v| v.1).reduce(|acc, n| acc + n).unwrap()
+    );
 }
 
 fn print_token_summary(files: Vec<TokenFile>) {

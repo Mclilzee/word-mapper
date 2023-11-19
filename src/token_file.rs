@@ -32,7 +32,7 @@ impl TokenFile {
         return self
             .tokens
             .iter()
-            .map(|t| (&t.0, (t.1 * 100 / total_occurences) as f32))
+            .map(|t| (&t.0, (t.1 as f32 / total_occurences as f32) * 100.0))
             .collect();
     }
 }
