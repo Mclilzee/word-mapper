@@ -1,6 +1,5 @@
-use std::path::PathBuf;
-
 use clap::{command, Parser};
+use std::path::PathBuf;
 
 #[derive(Parser)]
 #[command(
@@ -14,10 +13,10 @@ pub struct Args {
     pub path: Vec<PathBuf>,
 
     /// For printing out the total occurcenses across all files / directories
-    #[clap(short = 'C', long = "count")]
+    #[arg(short = 'C', long = "count")]
     pub count: bool,
 
     /// Searching for specific token
-    #[clap(short = 'S', long = "search")]
+    #[arg(short = 'S', long = "search")]
     pub search: Option<String>,
 }
