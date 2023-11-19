@@ -8,7 +8,7 @@ pub struct TokenFile {
 }
 
 impl TokenFile {
-    pub fn from_path(path: PathBuf) -> Option<TokenFile> {
+    pub fn from_path(path: PathBuf) -> Option<Self> {
         let name = path.to_str().unwrap_or("Unknown").to_owned();
         let content = read_to_string(&path);
         if content.is_err() {
@@ -23,6 +23,17 @@ impl TokenFile {
 
     pub fn from(name: String, tokens: Vec<(String, usize)>) -> TokenFile {
         TokenFile { name, tokens }
+    }
+
+    pub fn frequency(&self) -> Vec<(&String, f32)> {
+        let total_occurences: usize = self.tokens.iter().map(|f| f.1).sum();
+        println!("Sum is: {total_occurences}");
+
+        return self
+            .tokens
+            .iter()
+            .map(|t| (&t.0, (t.1 * 100 / total_occurences) as f32))
+            .collect();
     }
 }
 

@@ -67,6 +67,7 @@ fn print_token_files(files: Vec<TokenFile>) {
             .iter()
             .for_each(|t| println!("{}: {} <-- {}", t.0, t.1, f.name));
     });
+    // println!("{}", files.iter().map(|f| f.)))
 }
 
 fn print_token_summary(files: Vec<TokenFile>) {
