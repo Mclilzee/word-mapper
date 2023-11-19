@@ -65,7 +65,7 @@ fn extract_paths(path: PathBuf) -> Vec<PathBuf> {
 
 fn print_token_frequency(files: Vec<TokenFile>) {
     files.iter().for_each(|f| {
-        f.tokens
+        f.frequency()
             .iter()
             .for_each(|t| println!("{}: {}% <-- {}", t.0, t.1, f.name))
     });
