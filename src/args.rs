@@ -1,4 +1,4 @@
-use clap::{command, Parser, ValueEnum};
+use clap::{command, Parser};
 use std::path::PathBuf;
 
 #[derive(Parser)]

@@ -36,7 +36,7 @@ fn main() {
         None => token_files.collect(),
     };
 
-    if config.count {
+    if config.overall {
         print_token_summary(token_files);
     } else {
         print_token_files(token_files);
