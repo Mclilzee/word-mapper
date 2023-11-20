@@ -4,7 +4,6 @@ mod token_file;
 use args::Args;
 use clap::Parser;
 use std::collections::HashMap;
-use std::fmt::Write;
 use std::process::exit;
 use std::{fs::read_dir, path::PathBuf};
 use token_file::{Token, TokenFile};
@@ -68,14 +67,12 @@ fn extract_paths(path: PathBuf) -> Vec<PathBuf> {
 fn files_information(token_files: Vec<TokenFile>) -> Vec<String> {
     token_files
         .iter()
-        .map(|f| {
-            f.tokens.iter().fold(String::new(), |mut str, t| {
-                let _ = writeln!(
-                    str,
+        .flat_map(|f| {
+            f.tokens.iter().map(|t| {
+                format!(
                     "{}: {} ==== {:.3}% <-- {}",
                     t.symbol, t.occurence, t.frequency, f.name
-                );
-                str
+                )
             })
         })
         .collect()
