@@ -66,7 +66,7 @@ fn print_token_files(token_files: Vec<TokenFile>) {
     token_files.iter().for_each(|f| {
         f.tokens.iter().for_each(|t| {
             println!(
-                "{}: {} | {}% <-- {}",
+                "{}: {} ==== {:.3}% <-- {}",
                 t.symbol, t.occurence, t.frequency, f.name
             )
         });
