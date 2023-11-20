@@ -4,6 +4,7 @@ mod token_file;
 use args::Args;
 use clap::Parser;
 use std::collections::HashMap;
+use std::fmt::Write;
 use std::process::exit;
 use std::{fs::read_dir, path::PathBuf};
 use token_file::{Token, TokenFile};
@@ -40,7 +41,9 @@ fn main() {
     if config.overall {
         print_token_summary(token_files);
     } else {
-        strings_per_file(token_files);
+        strings_per_file(token_files)
+            .iter()
+            .for_each(|t| println!("{t}"));
     }
 }
 
@@ -66,15 +69,14 @@ fn strings_per_file(token_files: Vec<TokenFile>) -> Vec<String> {
     token_files
         .iter()
         .map(|f| {
-            f.tokens
-                .iter()
-                .map(|t| {
-                    format!(
-                        "{}: {} ==== {:.3}% <-- {}",
-                        t.symbol, t.occurence, t.frequency, f.name,
-                    )
-                })
-                .collect()
+            f.tokens.iter().fold(String::new(), |mut str, t| {
+                let _ = writeln!(
+                    str,
+                    "{}: {} ==== {:.3}% <-- {}",
+                    t.symbol, t.occurence, t.frequency, f.name
+                );
+                str
+            })
         })
         .collect()
 }
