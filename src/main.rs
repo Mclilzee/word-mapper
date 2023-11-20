@@ -23,24 +23,18 @@ fn main() {
         .flat_map(TokenFile::from_path)
         .collect();
 
-    // let token_files: Vec<TokenFile> = match config.search {
-    //     Some(search) => token_files
-    //         .map(|f| {
-    //             let filtered = f
-    //                 .tokens
-    //                 .into_iter()
-    //                 .filter(|t| t.0.to_lowercase().contains(&search.to_lowercase()))
-    //                 .collect();
-    //             TokenFile::from(f.name, filtered)
-    //         })
-    //         .collect(),
-    //     None => token_files.collect(),
-    // };
-
-    let data = if config.overall {
+    let mut data = if config.overall {
         token_summary(token_files)
     } else {
         files_information(token_files)
+    };
+
+    if let Some(search) = config.search {
+        data = data
+            .iter()
+            .filter(|&t| t.to_lowercase().contains(&search.to_lowercase()))
+            .map(|s| s.to_owned())
+            .collect();
     };
 
     data.iter().for_each(|t| println!("{t}"));
