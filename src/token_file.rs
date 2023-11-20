@@ -7,6 +7,12 @@ pub struct TokenFile {
     pub tokens: Vec<(String, usize)>,
 }
 
+pub struct Token {
+    pub word: String,
+    pub occurence: usize,
+    pub frequency: f32,
+}
+
 impl TokenFile {
     pub fn from_path(path: PathBuf) -> Option<Self> {
         let name = path.to_str().unwrap_or("Unknown").to_owned();
