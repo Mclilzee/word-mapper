@@ -40,7 +40,7 @@ fn main() {
     if config.overall {
         print_token_summary(token_files);
     } else {
-        print_token_files(token_files);
+        strings_per_file(token_files);
     }
 }
 
@@ -62,15 +62,21 @@ fn extract_paths(path: PathBuf) -> Vec<PathBuf> {
         .collect()
 }
 
-fn print_token_files(token_files: Vec<TokenFile>) {
-    token_files.iter().for_each(|f| {
-        f.tokens.iter().for_each(|t| {
-            println!(
-                "{}: {} ==== {:.3}% <-- {}",
-                t.symbol, t.occurence, t.frequency, f.name
-            )
-        });
-    });
+fn strings_per_file(token_files: Vec<TokenFile>) -> Vec<String> {
+    token_files
+        .iter()
+        .map(|f| {
+            f.tokens
+                .iter()
+                .map(|t| {
+                    format!(
+                        "{}: {} ==== {:.3}% <-- {}",
+                        t.symbol, t.occurence, t.frequency, f.name,
+                    )
+                })
+                .collect()
+        })
+        .collect()
 }
 
 fn print_token_summary(token_files: Vec<TokenFile>) {
