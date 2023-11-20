@@ -38,13 +38,13 @@ fn main() {
     //     None => token_files.collect(),
     // };
 
-    if config.overall {
-        token_summary(token_files);
+    let data = if config.overall {
+        token_summary(token_files)
     } else {
         files_information(token_files)
-            .iter()
-            .for_each(|t| println!("{t}"));
-    }
+    };
+
+    data.iter().for_each(|t| println!("{t}"));
 }
 
 fn extract_paths(path: PathBuf) -> Vec<PathBuf> {
