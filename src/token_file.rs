@@ -4,9 +4,10 @@ use std::{fs::read_to_string, path::PathBuf};
 #[derive(Debug)]
 pub struct TokenFile {
     pub name: String,
-    pub tokens: Vec<(String, usize)>,
+    pub tokens: Vec<Token>,
 }
 
+#[derive(Debug)]
 pub struct Token {
     pub word: String,
     pub occurence: usize,
@@ -21,7 +22,11 @@ impl TokenFile {
             return None;
         };
 
-        let tokens = extract_tokens(content.unwrap());
+        let content = content.expect(&format!(
+            "Error: Failed reading content after reading file {name}."
+        ));
+
+        let tokens = extract_tokens(content);
         let tokens = count_tokens(tokens);
 
         Some(TokenFile { name, tokens })
