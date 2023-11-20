@@ -39,7 +39,7 @@ fn main() {
     // };
 
     if config.overall {
-        print_token_summary(token_files);
+        token_summary(token_files);
     } else {
         strings_per_file(token_files)
             .iter()
@@ -81,7 +81,7 @@ fn strings_per_file(token_files: Vec<TokenFile>) -> Vec<String> {
         .collect()
 }
 
-fn print_token_summary(token_files: Vec<TokenFile>) {
+fn token_summary(token_files: Vec<TokenFile>) {
     let total_occurences: usize = token_files
         .iter()
         .map(|t| &t.tokens)
