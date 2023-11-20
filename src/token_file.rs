@@ -9,7 +9,7 @@ pub struct TokenFile {
 
 #[derive(Debug)]
 pub struct Token {
-    pub word: String,
+    pub symbol: String,
     pub occurence: usize,
     pub frequency: f32,
 }
@@ -26,24 +26,21 @@ impl TokenFile {
             "Error: Failed reading content after reading file {name}."
         ));
 
-        let tokens = extract_tokens(content);
-        let tokens = count_tokens(tokens);
+        let symbols = extract_tokens(content);
+
+        let tokens = count_tokens(symbols);
+        let total_occurences: usize = tokens.iter().map(|t| t.1).sum();
+
+        let tokens = tokens
+            .iter()
+            .map(|t| Token {
+                symbol: t.0,
+                occurence: t.1,
+                frequency: (t.1 as f32 / total_occurences as f32) * 100.0,
+            })
+            .collect();
 
         Some(TokenFile { name, tokens })
-    }
-
-    pub fn from(name: String, tokens: Vec<(String, usize)>) -> TokenFile {
-        TokenFile { name, tokens }
-    }
-
-    pub fn frequency(&self) -> Vec<(&String, f32)> {
-        let total_occurences: usize = self.tokens.iter().map(|f| f.1).sum();
-
-        return self
-            .tokens
-            .iter()
-            .map(|t| (&t.0, (t.1 as f32 / total_occurences as f32) * 100.0))
-            .collect();
     }
 }
 
