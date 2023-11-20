@@ -81,7 +81,7 @@ fn files_information(token_files: Vec<TokenFile>) -> Vec<String> {
         .collect()
 }
 
-fn token_summary(token_files: Vec<TokenFile>) {
+fn token_summary(token_files: Vec<TokenFile>) -> Vec<String> {
     let total_occurences: usize = token_files
         .iter()
         .map(|t| &t.tokens)
@@ -107,7 +107,9 @@ fn token_summary(token_files: Vec<TokenFile>) {
         .collect();
 
     tokens.sort_by(|a, b| a.occurence.cmp(&b.occurence));
+
     tokens
         .iter()
-        .for_each(|t| println!("{}: {} ==== {:.3}%", t.symbol, t.occurence, t.frequency));
+        .map(|t| format!("{}: {} ==== {:.3}%", t.symbol, t.occurence, t.frequency))
+        .collect()
 }
