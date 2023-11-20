@@ -41,7 +41,7 @@ fn main() {
     if config.overall {
         token_summary(token_files);
     } else {
-        strings_per_file(token_files)
+        files_information(token_files)
             .iter()
             .for_each(|t| println!("{t}"));
     }
@@ -65,7 +65,7 @@ fn extract_paths(path: PathBuf) -> Vec<PathBuf> {
         .collect()
 }
 
-fn strings_per_file(token_files: Vec<TokenFile>) -> Vec<String> {
+fn files_information(token_files: Vec<TokenFile>) -> Vec<String> {
     token_files
         .iter()
         .map(|f| {
