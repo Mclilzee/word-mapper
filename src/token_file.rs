@@ -22,9 +22,7 @@ impl TokenFile {
             return None;
         };
 
-        let content = content.expect(&format!(
-            "Error: Failed reading content after reading file {name}."
-        ));
+        let content = content.unwrap();
 
         let symbols = extract_tokens(content);
 
@@ -34,7 +32,7 @@ impl TokenFile {
         let tokens = tokens
             .iter()
             .map(|t| Token {
-                symbol: t.0,
+                symbol: t.0.to_owned(),
                 occurence: t.1,
                 frequency: (t.1 as f32 / total_occurences as f32) * 100.0,
             })
