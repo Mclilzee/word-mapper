@@ -19,8 +19,4 @@ pub struct Args {
     /// Searching for specific token
     #[arg(short = 'S', long = "search")]
     pub search: Option<String>,
-
-    /// Print out frequencies percentages instead of numbers
-    #[arg(short = 'F', long = "frequency")]
-    pub frequency: bool,
 }
